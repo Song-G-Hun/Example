@@ -1,0 +1,25 @@
+<configuration debug="true">
+    <timestamp key="byDate" datePattern="yyMMdd"/>
+    <!-- this is the app local data area so that we do not need storage permission to write there -->
+    <property name="LOG_HOME" value="${DATA_DIR}" />
+
+    <!-- Create a logcat appender -->
+    <appender name="logcat" class="ch.qos.logback.classic.android.LogcatAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_HOME}/app-${byDate}.log</file>
+        <encoder>
+            <pattern>[%d] [%F->line:%L] [%-5level] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="logcat" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
